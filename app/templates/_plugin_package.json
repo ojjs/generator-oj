@@ -1,0 +1,6 @@
+{
+  "name": "oj-<%= _.slugify(appname) %>",
+  "version": "0.0.0",
+  "dependencies": {
+  }
+}
