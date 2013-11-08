@@ -68,7 +68,7 @@ OJGenerator.prototype.askFor = function askFor() {
   if(this.options.name != 'express' && this.options.name != 'cli' && this.options.name != 'static')
   {
     this.prompt(promptType, function(typeResponses){
-      this.options.type = typeResponses.type.match(/^Express$/i) !== null ? 'express' : 'cli';
+      this.options.type = typeResponses.type.match(/Express/i) !== null ? 'express' : 'cli';
       checkForCoffee()
     }.bind(this));
   } else {
