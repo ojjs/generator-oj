@@ -1,6 +1,6 @@
 {
   "name": "generator-oj",
-  "version": "0.0.2",
+  "version": "0.0.3",
   "description": "A Yeoman generator to create and change OJ (ojjs.org) projects",
   "keywords": [
     "yeoman-generator",
