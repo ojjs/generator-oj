@@ -1,0 +1,17 @@
+{
+  "name": "oj-plugin-name",
+  "version": "0.0.1",
+  "main": "oj.PluginName.js",
+  "description": "Plugin Name plugin for OJ",
+  "homepage": "",
+  "author": "",
+  "keywords": [
+    "oj",
+    "plugin",
+    ""
+  ],
+  "repository": {
+    "type": "git",
+    "url": "git://github.com/ojjs/oj.PluginName.git"
+  }
+}

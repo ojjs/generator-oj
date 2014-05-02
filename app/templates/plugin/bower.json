@@ -1,0 +1,24 @@
+{
+  "name": "oj-plugin-name",
+  "version": "0.0.1",
+  "main": "oj.PluginName.js",
+  "homepage": "",
+  "authors": [
+    ""
+  ],
+  "description": "Plugin Name plugin for OJ",
+  "keywords": [
+    "oj",
+    "plugin",
+    ""
+  ],
+  "license": "MIT",
+  "ignore": [
+    ".DS_Store",
+    ".git",
+    ".gitignore",
+    "bower_components",
+    "package.json",
+    "node_modules"
+  ]
+}
