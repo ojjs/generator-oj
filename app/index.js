@@ -1,4 +1,5 @@
 'use strict';
+var fs = require('fs');
 var util = require('util');
 var path = require('path');
 var yeoman = require('yeoman-generator');
@@ -8,7 +9,7 @@ var OJGenerator = module.exports = function OJGenerator(args, options, config) {
   yeoman.generators.Base.apply(this, arguments);
   this.on('end', function () {
     this.installDependencies({ skipInstall: options['skip-install'] , callback:function(){
-      printHelp(this.options.type, this.options.name)
+      printUsage()
     }.bind(this)});
   });
 
@@ -27,10 +28,10 @@ OJGenerator.prototype.askFor = function askFor() {
   var promptType = [{
     type: 'list',
     name: 'type',
-    message: 'Do you want an Express website or a Static website?',
+    message: 'Do you want to make a Static or Express website?',
     choices: [
-      'Express website',
-      'Static website (The OJ CLI tool)'
+      'Static website (using OJ commandline)',
+      'Express website (using OJ middleware)'
     ]
   }];
 
@@ -89,7 +90,6 @@ OJGenerator.prototype.app = function app(){
   var commonDir = path.join(__dirname, 'templates', 'common')
 
   var packageSource = path.join(__dirname, 'templates', '_' + this.options.type + '_package.json')
-  var readmeSource = path.join(__dirname, 'templates', '_' + this.options.type + '_README.md')
   var bowerSource = path.join(__dirname, 'templates', '_' + this.options.type + '_bower.json')
 
   // Copy everything in commonDir
@@ -103,21 +103,18 @@ OJGenerator.prototype.app = function app(){
   // Restore original directory and Template
   this.sourceRoot(sourceDir)
   this.template(packageSource, 'package.json', this.options)
-  this.template(readmeSource, 'README.md', this.options)
-  if (this.options.type == 'plugin') {
-    this.template(readmeSource, 'bower.json', this.options)
-  }
 
   done()
 };
 
+// Print readme up to "Frequently Asked Questions"
+function printUsage(){
 
-function printHelp(type, name) {
-  if (type == 'express') {
-    console.log('\n\n   Congrats! An Express Server with OJ as been created!\n   ---------------------------------------------------------\n\n   Start your Express Server by running: \n\n      node app\n\n   Open your website at:\n\n      http://localhost:3000\n\n      http://localhost:3000/use-template\n\n   Or if you prefer using grunt: \n\n      grunt start\n\n      grunt open\n\n')
-  } else if (type == 'cli') {
-    console.log('\n\n   Congrats! A static website using OJ has been created!\n   ---------------------------------------------------------\n\n   Build your website by running:\n\n      oj website --no-modules\n\n   Minify and watch with:\n\n      oj website --no-modules --minify --watch\n\n   Or if you prefer using grunt: \n\n      grunt build\n\n      grunt open\n\n   For more help run:\n\n      oj --help\n\n')
-  } else if (type == 'plugin') {
-    console.log('\n\n   Congrats! An OJ plugin has been created!\n   ---------------------------------------------------------\n\n   Build your website by running:\n\n      oj .\n\n   Watch for changes and minify with: \n\n      oj . --minify --watch\n\n   For more info run:\n\n      oj --help\n\n')
-  }
+  var lines = fs.readFileSync(path.resolve(process.cwd(), 'README.md'), 'utf8')
+  // Print only up to FAQ
+  var faqStart = lines.indexOf('Frequently Asked Questions')
+  // If not found then print all of it
+  if(faqStart == -1)
+    faqStart == undefined
+  console.log("\n\n" + lines.slice(0,faqStart))
 }
